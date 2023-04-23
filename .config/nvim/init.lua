@@ -1,8 +1,11 @@
 -- Initalize
 require('plugins.plugin')
-require('schema.bindings')
-require('schema.colors')
+require('core.bindings')
+require('core.scheme')
+
+-- Status line
+require('core.statusline')
 
 -- Language servers
-require('language.cmp.complete')
 require('language.lsp')
+require('language.completion')

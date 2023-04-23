@@ -1,4 +1,6 @@
-require('startup').setup({
+local splash = require('startup')
+
+splash.setup({
 	options = {	
 		mapping_keys = true,
 		cursor_column = 0.5,
@@ -20,7 +22,7 @@ require('startup').setup({
 	},
 	parts = { 'section_1', 'section_2' }
 })
-require("startup").setup({ theme = 'dashboard' })
+splash.setup({ theme = 'dashboard' })
 
 -- local settings = (<settings>)
 -- return settings

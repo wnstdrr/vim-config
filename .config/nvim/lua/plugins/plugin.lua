@@ -1,17 +1,6 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.api.nvim_command('packadd packer.nvim')
-    return true
-  end
-  return false
-end
+require('plugins.pack')
 
-local packer_bootstrap = ensure_packer()
-
-return require('packer').startup(function(use)
+return pkg.startup(function(use)
   use { 
 	  'wbthomason/packer.nvim',           -- Package Manager
 	  'eddyekofo94/gruvbox-flat.nvim',    -- Theme
@@ -27,9 +16,21 @@ return require('packer').startup(function(use)
 	  'L3MON4D3/LuaSnip', 
 	  'saadparwaiz1/cmp_luasnip',
 	  'rafamadriz/friendly-snippets',
+      'nvim-lualine/lualine.nvim',
+	  'ryanoasis/vim-devicons',
+      'nvim-neo-tree/neo-tree.nvim',
+      'pacha/vem-tabline',
+      'BurntSushi/ripgrep',
+      'sharkdp/fd'
   }
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+  use {
+      'vonheikemen/fine-cmdline.nvim',
+      requires = { 'MunifTanjim/nui.nvim' }
+  }
+
+  use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.1',
+	  requires = { 'nvim-lua/plenary.nvim', 'sharkdp/fd' },
+  }
 end)
