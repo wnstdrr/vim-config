@@ -1,10 +1,14 @@
 -- Keymapping utilities
+
+K = { }
 local keymap = vim.keymap.set
 
-function map(mode, lhs, rhs, opts)
+function K.map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
-        options = vim.tbl_extend('force', options, opts)
+        options = vim.tbl_deep_extend('force', options, opts)
     end
     keymap(mode, lhs, rhs, options)
 end
+
+return K

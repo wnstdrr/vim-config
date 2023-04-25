@@ -1,13 +1,17 @@
-bind = vim.opt 
+local B = { }
+
+B.bind = vim.opt 
 
 -- Bind single method to a value
-bindmap = function(method, value)
-	bind[method] = value	
+B.bindmap = function(method, value)
+	B.bind[method] = value	
 end
 
 -- Bind multiple methods to a value
-fbindmap = function(methods, value)
-	for k, v in pairs(methods) do
-		bindmap(v, value)
+B.fbindmap = function(methods, value)
+	for _, v in pairs(methods) do
+		B.bindmap(v, value)
 	end
 end
+
+return B

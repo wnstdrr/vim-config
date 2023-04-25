@@ -1,8 +1,8 @@
 local ll = require('lualine')
 local line = require('fine-cmdline')
-require('core.utilities.keymap')
+local kymp = require('core.utilities.keymap')
 
-map('n', '<Tab>', '<cmd>FineCmdline<CR>', { noremap = true })
+kymp.map('n', '<Tab>', '<cmd>FineCmdline<CR>', { noremap = true })
 
 ll.setup {
   options = {

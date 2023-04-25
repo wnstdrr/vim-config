@@ -1,36 +1,35 @@
-require('core.utilities.bindmap')
-require('core.utilities.keymap')
+local bmp = require('core.utilities.bindmap')
+local kymp = require('core.utilities.keymap')
 
-local glass = require('telescope.builtin')
+spyglass = require('telescope.builtin')
 
 -- VIM Bindings 
 
 -- Default boolean values
-fbindmap({ 'expandtab', 'ignorecase', 'smartcase', 'relativenumber', 'ruler', 'hlsearch', 'incsearch', 'showmatch' }, true)
+bmp.fbindmap({ 'expandtab', 'ignorecase', 'smartcase', 'relativenumber', 'ruler', 'hlsearch', 'incsearch', 'showmatch' }, true)
 
 -- Setup tabbing
-fbindmap({ 'tabstop', 'softtabstop', 'shiftwidth' }, 4)
+bmp.fbindmap({ 'tabstop', 'softtabstop', 'shiftwidth' }, 4)
 
 -- Default file encoding
-bindmap('encoding', 'utf-8')
+bmp.bindmap('encoding', 'utf-8')
 
 -- Enable mouse feature
-bindmap('mouse', 'nv')
+bmp.bindmap('mouse', 'nv')
 
 -- Set cmd height
-bindmap('cmdheight', 1)
+bmp.bindmap('cmdheight', 1)
 
 -- Refresh rate for lsp server (in millis)
-bindmap('updatetime', 400)
+bmp.bindmap('updatetime', 400)
 
 
 -- Physical Keybindings
 
-map('n', '<F5>', '<cmd>Neotree<CR>', { silent = true })
-
+kymp.map('n', '<F5>', '<cmd>Neotree<CR>', { silent = true })
 
 -- Telescope keymappings
-map('n', '<F1>', glass.find_files, { })
-map('n', '<F2>', glass.buffers, { })
-map('n', '<F3>', glass.live_grep, { })
-map('n', '<F4>', glass.help_tags, { })
+kymp.map('n', '<F1>', [[<cmd>lua  spyglass.find_files({ no_ignore = true, prompt_title = 'Search?' })<CR>]], { })
+kymp.map('n', '<F2>', spyglass.buffers, { })
+kymp.map('n', '<F3>', spyglass.live_grep, { })
+kymp.map('n', '<F4>', spyglass.help_tags, { })
