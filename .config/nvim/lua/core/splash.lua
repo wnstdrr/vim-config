@@ -1,3 +1,4 @@
+-- Unused due to a current bug I don't feel like fixing right now
 local splash = require('startup')
 
 section1 = {
