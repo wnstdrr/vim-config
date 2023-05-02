@@ -1,14 +1,15 @@
 -- Initalize
-require('plugins.plugin')
-require('core.bindings')
-require('core.scheme')
+require("plugins.plugin")
+require("core.bindings")
+require("core.scheme")
 
 -- Compression Utilities
-require('core.utilities.compression')
+require("core.utilities.compression")
 
 -- Status line
-require('core.statusline')
+require("core.statusline")
 
 -- Language servers
-require('language.lsp')
-require('language.completion')
+require("language.lsp")
+require("language.snippet")
+
