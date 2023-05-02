@@ -1,36 +1,56 @@
-require('plugins.pack')
+require("plugins.pack")
 
-return pkg.startup(function(use)
-  use { 
-	  'wbthomason/packer.nvim',           -- Package Manager
-	  'eddyekofo94/gruvbox-flat.nvim',    -- Theme
-	  'neovim/nvim-lspconfig',            -- Language Servers
-	  'hrsh7th/nvim-cmp',                 -- Auto Complete
-	  'mason-org/mason-registry',
-	  'williamboman/mason.nvim',
-	  'williamboman/mason-lspconfig.nvim',
-	  'hrsh7th/cmp-nvim-lsp',             -- CMP Language Server
-	  'hrsh7th/cmp-buffer',
-	  'hrsh7th/cmp-look',
-	  'nvim-treesitter/nvim-treesitter',  -- Extended Language Support
-	  'L3MON4D3/LuaSnip', 
-	  'saadparwaiz1/cmp_luasnip',
-	  'rafamadriz/friendly-snippets',
-      'nvim-lualine/lualine.nvim',
-	  'ryanoasis/vim-devicons',
-      'nvim-neo-tree/neo-tree.nvim',
-      'pacha/vem-tabline',
-      'BurntSushi/ripgrep',
-      'sharkdp/fd'
-  }
+return Pkg.startup(
+    function(use)
+        use {
+            -- Default packages
+            "wbthomason/packer.nvim",
+            "eddyekofo94/gruvbox-flat.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-lualine/lualine.nvim",
+            "nvim-neo-tree/neo-tree.nvim",
+            "pacha/vem-tabline"
+        }
 
-  use {
-      'vonheikemen/fine-cmdline.nvim',
-      requires = { 'MunifTanjim/nui.nvim' }
-  }
+        use {
+            "VonHeikemen/lsp-zero.nvim",
+            branch = "v2.x",
+            requires = {
+                -- LSP Support
+                {"neovim/nvim-lspconfig"},
+                {
+                    "williamboman/mason.nvim",
+                    run = function()
+                        pcall(vim.cmd, "MasonUpdate")
+                    end
+                },
+                {"williamboman/mason-lspconfig.nvim"},
+                -- Autocompletion
+                {"hrsh7th/nvim-cmp"},
+                {"hrsh7th/cmp-nvim-lsp"},
+                {"hrsh7th/cmp-buffer"},
+                {"hrsh7th/cmp-path"},
+                {"saadparwaiz1/cmp_luasnip"},
+                {"hrsh7th/cmp-nvim-lua"},
+                -- Snippets
+                {"L3MON4D3/LuaSnip"},
+                {"rafamadriz/friendly-snippets"}
+            }
+        }
 
-  use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.1',
-	  requires = { 'nvim-lua/plenary.nvim', 'sharkdp/fd' },
-  }
-end)
+        use {
+            -- Finecmd
+            "vonheikemen/fine-cmdline.nvim",
+            requires = {"MunifTanjim/nui.nvim"}
+        }
+
+        use {
+            -- Telescope
+            "nvim-telescope/telescope.nvim",
+            tag = "0.1.1",
+            requires = {"nvim-lua/plenary.nvim"}
+        }
+    end
+)
+
