@@ -1,3 +1,4 @@
+![nv](https://github.com/wnstdrr/nv/assets/12807776/d61253f8-7acc-4c94-9114-3e99d7c87c12)
 # Neovim Configuration
 
 This repository contains my personal Neovim configuration. This configuration includes various plugins, key mappings, and settings to consume the the rest of my life.
