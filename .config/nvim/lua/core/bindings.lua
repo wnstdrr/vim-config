@@ -1,18 +1,26 @@
+--[[
+-- ██████╗ ██╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗ ███████╗
+-- ██╔══██╗██║████╗  ██║██╔══██╗██║████╗  ██║██╔════╝ ██╔════╝
+-- ██████╔╝██║██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗███████╗
+-- ██╔══██╗██║██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║╚════██║
+-- ██████╔╝██║██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝███████║
+-- ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
+]]--
+
 local bmp = require("core.utilities.bindmap")
 local kymp = require("core.utilities.keymap")
 
 Spyglass = require("telescope.builtin")
-
--- VIM Bindings
+SpyglassTheme = require("telescope.themes")
 
 -- Default boolean values
 bmp.fbindmap(
-    {"expandtab", "ignorecase", "smartcase", "relativenumber", "ruler", "hlsearch", "incsearch", "showmatch"},
+    { "expandtab", "ignorecase", "smartcase", "relativenumber", "ruler", "hlsearch", "incsearch", "showmatch" },
     true
 )
 
 -- Setup tabbing
-bmp.fbindmap({"tabstop", "softtabstop", "shiftwidth"}, 4)
+bmp.fbindmap({ "tabstop", "softtabstop", "shiftwidth" }, 4)
 
 -- Default file encoding
 bmp.bindmap("encoding", "utf-8")
@@ -23,16 +31,61 @@ bmp.bindmap("mouse", "nv")
 -- Set cmd height
 bmp.bindmap("cmdheight", 1)
 
+-- Yank to system clipboard
+bmp.bindmap("clipboard", vim.opt.clipboard._value .. "unnamedplus")
+
 -- Refresh rate for lsp server (in millis)
-bmp.bindmap("updatetime", 400)
+bmp.bindmap("updatetime", 200)
 
 -- Physical Keybindings
-
-kymp.map("n", "<F5>", "<cmd>Neotree<CR>", {silent = true})
-
--- Telescope keymappings
-kymp.map("n", "<F1>", [[<cmd>lua  Spyglass.find_files({ no_ignore = true, prompt_title = 'Search?' })<CR>]], {})
-kymp.map("n", "<F2>", Spyglass.buffers, {})
-kymp.map("n", "<F3>", Spyglass.live_grep, {})
-kymp.map("n", "<F4>", Spyglass.help_tags, {})
-
+kymp.mapA({
+    defaults = {
+        silent = true,
+    },
+    {
+        -- Neotree
+        mode = "n",
+        lhs = "<F5>",
+        rhs = [[<cmd>Neotree toggle<CR>]],
+        opt = {
+            noremap = true
+        }
+    },
+    {
+        -- Nice references
+        mode = "n",
+        lhs = "<MiddleMouse>",
+        rhs = [[<cmd>lua require('nice-reference').references()<CR>]],
+    },
+    {
+        -- Fine cmd line
+        mode = "n",
+        lhs = "<Tab>",
+        rhs = [[<cmd>FineCmdline<CR>]]
+    },
+    {
+        -- Telescope find in files
+        mode = "n",
+        lhs = "1",
+        rhs = [[<cmd>lua Spyglass.find_files({ no_ignore = true, prompt_title = 'Search?', preview_title = '...' })<CR>]]
+    },
+    {
+        -- Telescope buffers
+        mode = "n",
+        lhs = "2",
+        rhs =
+        [[<cmd>lua Spyglass.buffers(SpyglassTheme.get_cursor({ no_ignore = true, prompt_title = 'Buffer?', preview_title = '...' }))<CR>]]
+    },
+    {
+        -- Telescope live grep (ripgrep)
+        mode = "n",
+        lhs = "3",
+        rhs = [[<cmd>lua Spyglass.live_grep({ no_ignore = true, prompt_title = 'Grepper?', preview_title = '...' })<CR>]]
+    },
+    {
+        -- Telescope help tags
+        mode = "n",
+        lhs = "4",
+        rhs = [[<cmd>lua Spyglass.help_tags()<CR>]]
+    }
+})

@@ -1,15 +1,21 @@
-local ll = require("lualine")
-local line = require("fine-cmdline")
-local kymp = require("core.utilities.keymap")
+--[[
+-- ███████╗████████╗ █████╗ ████████╗██╗   ██╗███████╗      ██╗     ██╗███╗   ██╗███████╗
+-- ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██║   ██║██╔════╝      ██║     ██║████╗  ██║██╔════╝
+-- ███████╗   ██║   ███████║   ██║   ██║   ██║███████╗█████╗██║     ██║██╔██╗ ██║█████╗  
+-- ╚════██║   ██║   ██╔══██║   ██║   ██║   ██║╚════██║╚════╝██║     ██║██║╚██╗██║██╔══╝  
+-- ███████║   ██║   ██║  ██║   ██║   ╚██████╔╝███████║      ███████╗██║██║ ╚████║███████╗
+-- ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝      ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
+]]--
 
-kymp.map("n", "<Tab>", "<cmd>FineCmdline<CR>", {noremap = true})
+local ll = require("lualine")
+local fcl = require("fine-cmdline")
 
 ll.setup {
     options = {
         icons_enabled = false,
         theme = "auto",
-        component_separators = {left = " | ", right = " | "},
-        section_separators = {left = " > ", right = " | "},
+        component_separators = { left = " | ", right = " | " },
+        section_separators = { left = " > ", right = " | " },
         disabled_filetypes = {
             statusline = {},
             winbar = {}
@@ -24,18 +30,18 @@ ll.setup {
         }
     },
     sections = {
-        lualine_a = {"mode"},
-        lualine_b = {"branch", "diff", "diagnostics"},
-        lualine_c = {"filename"},
-        lualine_x = {"encoding", "fileformat", "filetype"},
-        lualine_y = {"progress"},
-        lualine_z = {"location"}
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = { "filename" },
+        lualine_x = { "encoding", "fileformat", "filetype" },
+        lualine_y = { "progress" },
+        lualine_z = { "location" }
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {"filename"},
-        lualine_x = {"location"},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {}
     },
@@ -45,7 +51,7 @@ ll.setup {
     extensions = {}
 }
 
-line.setup(
+fcl.setup(
     {
         cmdline = {
             enable_keymaps = true,
@@ -61,7 +67,7 @@ line.setup(
                 width = "55%"
             },
             border = {
-                style = "rounded"
+                style = "single"
             },
             win_options = {
                 winhighlight = "Normal:Normal,FloatBorder:FloatBorder"
@@ -69,15 +75,14 @@ line.setup(
         },
         hooks = {
             before_mount = function(input)
-                -- code
+                -- code (unused)
             end,
             after_mount = function(input)
-                -- code
+                -- code (unused)
             end,
             set_keymaps = function(imap, feedkeys)
-                -- code
+                -- code (unused)
             end
         }
     }
 )
-
