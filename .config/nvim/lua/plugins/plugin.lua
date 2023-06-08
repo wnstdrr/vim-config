@@ -5,7 +5,8 @@
 -- ██╔═══╝ ██║     ██║   ██║██║   ██║██║██║╚██╗██║
 -- ██║     ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║
 -- ╚═╝     ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝
-]]--
+]]
+   --
 
 -- Plugin utilities
 -- "our" code
@@ -89,5 +90,14 @@ return Pkg.startup(function(use)
             require('core.animate')
         end,
         branch = 'stable',
+    }
+    use {
+        'tanvirtin/vgit.nvim',
+        config = function()
+            require('core.vsulgit')
+        end,
+        requires = {
+            'nvim-lua/plenary.nvim',
+        },
     }
 end)
