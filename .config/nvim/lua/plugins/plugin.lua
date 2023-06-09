@@ -11,8 +11,6 @@
 -- Plugin utilities
 -- "our" code
 
--- get square root 
-
 require("plugins.pack")
 
 return Pkg.startup(function(use)
