@@ -5,7 +5,7 @@
 -- ██╔══██╗██║██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║╚════██║
 -- ██████╔╝██║██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝███████║
 -- ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
-]]--
+]]
 
 local bmp = require("core.utilities.bindmap")
 local kymp = require("core.utilities.keymap")
@@ -87,5 +87,47 @@ kymp.mapA({
         mode = "n",
         lhs = "4",
         rhs = [[<cmd>lua Spyglass.help_tags()<CR>]]
-    }
+    },
+    {
+        mode = "i",
+        lhs = "<Tab>",
+        rhs = function()
+            return vim.fn['codeium#Accept']()
+        end,
+        opt = {
+            expr = true,
+            noremap = true,
+        },
+    },
+    {
+        mode = "i",
+        lhs = "<c-;>",
+        rhs = function()
+           return vim.fn['codeium#CycleCompletions'](1)
+        end,
+        opt = {
+            expr = true,
+        },
+    },
+    {
+        mode = "i",
+        lhs = "<c-,>",
+        rhs = function()
+            return vim.fn['codeium#CycleCompletions'](-1)
+        end,
+        opt = {
+            expr = true,
+        },
+    },
+    {
+        mode = "i",
+        lhs = "<c-x>",
+        rhs = function()
+            return vim.fn['codeium#Clear']()
+        end,
+        opt = {
+            expr = true,
+        },
+    },
 })
+

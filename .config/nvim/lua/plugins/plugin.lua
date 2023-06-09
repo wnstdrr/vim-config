@@ -6,10 +6,12 @@
 -- ██║     ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║
 -- ╚═╝     ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝
 ]]
-   --
+--
 
 -- Plugin utilities
 -- "our" code
+
+-- get square root 
 
 require("plugins.pack")
 
@@ -100,4 +102,12 @@ return Pkg.startup(function(use)
             'nvim-lua/plenary.nvim',
         },
     }
+    use {
+        "Exafunction/codeium.vim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
+        },
+    }
 end)
+
