@@ -16,6 +16,6 @@ RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share
 
 # TODO: sync nvim config with packer.nvim with CMD
 
-CMD ["/bin/sh", "nvim"]
+CMD ["/bin/sh"]
 
 WORKDIR /root
