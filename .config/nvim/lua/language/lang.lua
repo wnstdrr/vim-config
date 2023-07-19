@@ -18,7 +18,8 @@ local lang = {
     },
     mason_languages = {
         -- List of Mason lsp packages
-        -- TODO: add mason languages
+        -- TODO: add mason languages, this will constantly grow
+        "lua_ls", "clangd", "jdtls", "jsonls", "lemminx", "sqlls" 
     },
 
     optional_languages = {
