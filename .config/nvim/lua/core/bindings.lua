@@ -15,7 +15,7 @@ SpyglassTheme = require("telescope.themes")
 
 -- Default boolean values
 bmp.fbindmap(
-    { "expandtab", "ignorecase", "smartcase", "relativenumber", "ruler", "hlsearch", "incsearch", "showmatch" },
+    { "expandtab", "ignorecase", "smartcase", "relativenumber", "ruler", "hlsearch", "incsearch", "showmatch", "autochdir" },
     true
 )
 
@@ -26,7 +26,7 @@ bmp.fbindmap({ "tabstop", "softtabstop", "shiftwidth" }, 4)
 bmp.bindmap("encoding", "utf-8")
 
 -- Enable mouse feature
-bmp.bindmap("mouse", "nv")
+bmp.bindmap("mouse", "nvi")
 
 -- Set cmd height
 bmp.bindmap("cmdheight", 1)
@@ -35,7 +35,7 @@ bmp.bindmap("cmdheight", 1)
 bmp.bindmap("clipboard", vim.opt.clipboard._value .. "unnamedplus")
 
 -- Refresh rate for lsp server (in millis)
-bmp.bindmap("updatetime", 200)
+bmp.bindmap("updatetime", 128)
 
 -- Physical Keybindings
 kymp.mapA({
@@ -89,6 +89,7 @@ kymp.mapA({
         rhs = [[<cmd>lua Spyglass.help_tags()<CR>]]
     },
     {
+        -- Codeium acception
         mode = "i",
         lhs = "<Tab>",
         rhs = function()
@@ -100,6 +101,7 @@ kymp.mapA({
         },
     },
     {
+        -- Codeium cycle forward
         mode = "i",
         lhs = "<c-;>",
         rhs = function()
@@ -110,6 +112,7 @@ kymp.mapA({
         },
     },
     {
+        -- Codeium cycle backward
         mode = "i",
         lhs = "<c-,>",
         rhs = function()
@@ -120,6 +123,7 @@ kymp.mapA({
         },
     },
     {
+        -- Codeium clear completion
         mode = "i",
         lhs = "<c-x>",
         rhs = function()
@@ -130,4 +134,3 @@ kymp.mapA({
         },
     },
 })
-
