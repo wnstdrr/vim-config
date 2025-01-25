@@ -12,4 +12,10 @@ L.lang = {
     },
 }
 
-return lang
+L.RegisterLanguages = function(register)
+    for _, v in pairs(register) do
+        vim.treesitter.language.register(v.language, v.filetype)
+    end
+end
+
+return L
