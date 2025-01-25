@@ -1,70 +1,32 @@
---[[
--- ███████╗ ██████╗██╗  ██╗███████╗███╗   ███╗ █████╗ 
--- ██╔════╝██╔════╝██║  ██║██╔════╝████╗ ████║██╔══██╗
--- ███████╗██║     ███████║█████╗  ██╔████╔██║███████║
--- ╚════██║██║     ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══██║
--- ███████║╚██████╗██║  ██║███████╗██║ ╚═╝ ██║██║  ██║
--- ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝
-]]--
+require("core.tbar")
+require("core.windy")
 
--- Setup color schemes
--- TODO: Painfully re-create gruvbox theme, use plugin for now 
-
-local scheme = vim.api.nvim_set_option
-local schemec = vim.api.nvim_command
-local schemeg = vim.g
-
--- Set colorscheme gruvbox
-require("gruvbox").setup({
-    undercurl = true,
-    underline = true,
-    bold = true,
-    italic = {
-        strings = true,
-        comments = true,
-        operators = false,
-        folds = true,
+-- Default options:
+require("kanagawa").setup({
+    compile = false,  -- enable compiling the colorscheme
+    undercurl = true, -- enable undercurls
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true },
+    statementStyle = { bold = true },
+    typeStyle = {},
+    transparent = false,   -- do not set background color
+    dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true, -- define vim.g.terminal_color_{0,17}
+    colors = {             -- add/modify theme and palette colors
+        palette = {},
+        theme = { wave = {}, lotus = {}, dragon = {}, all = { ui = { bg_gutter = "none" } } },
     },
-    strikethrough = true,
-    invert_selection = false,
-    invert_signs = false,
-    invert_tabline = false,
-    invert_intend_guides = false,
-    inverse = true, -- invert background for search, diffs, statuslines and errors
-    contrast = "soft",  -- can be "hard", "soft" or empty string
-    palette_overrides = {},
-    overrides = {},
-    dim_inactive = false,
-    transparent_mode = false,
+    --[[overrides = function(colors) -- add/modify highlights
+        return {}
+    end,--]]
+    theme = "wave",    -- Load "wave" theme when 'background' option is not set
+    background = {     -- map the value of 'background' option to a theme
+        dark = "wave", -- try "dragon" !
+        light = "lotus"
+    },
 })
-schemec('colorscheme gruvbox')
 
-require('lualine').setup(
-    {
-        options = {
-            theme = "gruvbox"
-        }
-    }
-)
+-- setup must be called before loading
+vim.cmd("colorscheme kanagawa")
 
-require('telescope').setup(
-    {
-        defaults = {
-        },
-        layout_config = {
-            prompt_layout = 'top',
-            center = {
-                width = function(_, max_columns)
-                    local percentage = 0.5
-                    local max = 70
-                    return math.min(math.floor(percentage * max_columns), max)
-                end,
-                height = function(_, max_rows)
-                    local percentage = 0.5
-                    local min = 70
-                    return math.min(math.floor(percentage * max_rows), min)
-                end
-            }
-        }
-    }
-)
