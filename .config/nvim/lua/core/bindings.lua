@@ -40,8 +40,7 @@ bndr.bindmap("updatetime", 128)
 vim.wo.signcolumn = "yes"
 vim.g.mapleader = ","
 
--- Refresh rate for lsp server (in millis)
-bmp.bindmap("updatetime", 128)
+-- local initDirectory = vim.fn.expandcmd('%:p:h')
 
 -- Bind physical mappings
 bndr.physmapMulti({
