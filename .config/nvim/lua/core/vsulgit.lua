@@ -1,5 +1,8 @@
 local vg = require('vgit')
 
+local kan = require("kanagawa.colors").setup({ theme = "wave" })
+local palette = kan.palette
+
 vg.setup({
   keymaps = {
     ['n <C-k>'] = function() vg.hunk_up() end,
@@ -37,21 +40,21 @@ vg.setup({
       GitComment = 'Comment',
       GitSignsAdd = {
         gui = nil,
-        fg = '#d7ffaf',
+        fg = palette.autumnGreen,
         bg = nil,
         sp = nil,
         override = false,
       },
       GitSignsChange = {
         gui = nil,
-        fg = '#7AA6DA',
+        fg = palette.boatYellow2,
         bg = nil,
         sp = nil,
         override = false,
       },
       GitSignsDelete = {
         gui = nil,
-        fg = '#e95678',
+        fg = palette.autumnRed,
         bg = nil,
         sp = nil,
         override = false,
@@ -61,14 +64,14 @@ vg.setup({
       GitWordAdd = {
         gui = nil,
         fg = nil,
-        bg = '#5d7a22',
+        bg = palette.springGreen,
         sp = nil,
         override = false,
       },
       GitWordDelete = {
         gui = nil,
         fg = nil,
-        bg = '#960f3d',
+        bg = palette.peachRed,
         sp = nil,
         override = false,
       },
@@ -185,21 +188,21 @@ vg.setup({
           numhl = nil,
           icon = nil,
           linehl = nil,
-          text = '┃',
+          text = '▎',
         },
         GitSignsDelete = {
           texthl = 'GitSignsDelete',
           numhl = nil,
           icon = nil,
           linehl = nil,
-          text = '┃',
+          text = '▎',
         },
         GitSignsChange = {
           texthl = 'GitSignsChange',
           numhl = nil,
           icon = nil,
           linehl = nil,
-          text = '┃',
+          text = '▎',
         },
       },
       usage = {
@@ -219,3 +222,4 @@ vg.setup({
     },
   }
 })
+
