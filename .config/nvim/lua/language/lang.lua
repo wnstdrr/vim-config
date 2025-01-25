@@ -1,30 +1,14 @@
---[[
--- ██╗      █████╗ ███╗   ██╗ ██████╗
--- ██║     ██╔══██╗████╗  ██║██╔════╝
--- ██║     ███████║██╔██╗ ██║██║  ███╗
--- ██║     ██╔══██║██║╚██╗██║██║   ██║
--- ███████╗██║  ██║██║ ╚████║╚██████╔╝
--- ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝
-]]--
+local L = {}
 
--- Lang utilities
--- Collection of "useful" languages, treesitter
-
-local lang = {
+L.lang = {
     languages = {
-        -- List of tree-sitter packages
-        -- TODO: gonna need more than this boss
-        { "lua", "vim", "vimdoc", "c", "java" },
+        { "lua", "vim", "vimdoc", "bash", "c", "llvm", "java", "sql", "html", "css", "vue", "graphql", "php", "phpdoc", "markdown_inline", "comment", "diff", "dockerfile", "yaml", "json", "json5" },
     },
     mason_languages = {
-        -- List of Mason lsp packages
-        -- TODO: add mason languages, this will constantly grow
-        "lua_ls", "clangd", "jdtls", "jsonls", "lemminx", "sqlls" 
+        "lua_ls", "clangd", "jdtls", "jsonls", "lemminx", "sqlls", "intelephense", "pyright", "tsserver", "marksman",
+        "graphql", "html", "volar", "tsserver"
     },
-
-    optional_languages = {
-        -- Optional tree-sitter packages
-        -- TODO: add optional languages
+    ignore_languages = {
     },
 }
 
