@@ -1,86 +1,104 @@
---[[
--- ██████╗ ██╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗ ███████╗
--- ██╔══██╗██║████╗  ██║██╔══██╗██║████╗  ██║██╔════╝ ██╔════╝
--- ██████╔╝██║██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗███████╗
--- ██╔══██╗██║██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║╚════██║
--- ██████╔╝██║██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝███████║
--- ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
-]]
-
-local bmp = require("core.utilities.bindmap")
-local kymp = require("core.utilities.keymap")
+local bndr = require("core.utilities.bind")
+local object = require("core.utilities.object")
 
 Spyglass = require("telescope.builtin")
 SpyglassTheme = require("telescope.themes")
+Browser = require("telescope").load_extension("file_browser")
 
--- Default boolean values
-bmp.fbindmap(
-    { "expandtab", "ignorecase", "smartcase", "relativenumber", "ruler", "hlsearch", "incsearch", "showmatch", "autochdir" },
-    true
+-- Enable defaults
+bndr.fbindmap(
+    { "expandtab",
+        "hlsearch", "ignorecase",
+        "number", "relativenumber",
+        "ruler", "showmatch",
+        "smartcase", "incsearch",
+        "splitbelow",
+        "splitright"
+    }, true
 )
 
--- Setup tabbing
-bmp.fbindmap({ "tabstop", "softtabstop", "shiftwidth" }, 4)
+-- Bind tabs and shift width
+bndr.fbindmap(
+    { "tabstop", "softtabstop", "shiftwidth" }, 4
+)
 
--- Default file encoding
-bmp.bindmap("encoding", "utf-8")
+bndr.bindmap("conceallevel", 2)
+bndr.bindmap("concealcursor", "nc")
 
--- Enable mouse feature
-bmp.bindmap("mouse", "nvi")
+bndr.bindmap("encoding", "utf-8")
 
--- Set cmd height
-bmp.bindmap("cmdheight", 1)
+bndr.bindmap("mouse", "nvi")
 
--- Yank to system clipboard
-bmp.bindmap("clipboard", vim.opt.clipboard._value .. "unnamedplus")
+bndr.bindmap("cmdheight", 1)
+
+-- Share clipboard with system
+bndr.bindmap("clipboard", vim.opt.clipboard._value .. "unnamedplus")
+
+-- LSP update time
+bndr.bindmap("updatetime", 128)
+
+vim.wo.signcolumn = "yes"
+vim.g.mapleader = ","
 
 -- Refresh rate for lsp server (in millis)
 bmp.bindmap("updatetime", 128)
 
--- Physical Keybindings
-kymp.mapA({
+-- Bind physical mappings
+bndr.physmapMulti({
     defaults = {
         silent = true,
     },
     {
         -- Neotree
         mode = "n",
-        lhs = "<F5>",
+        lhs = "5",
         rhs = [[<cmd>Neotree toggle<CR>]],
         opt = {
             noremap = true
         }
     },
     {
-        -- Nice references
         mode = "n",
-        lhs = "<MiddleMouse>",
-        rhs = [[<cmd>lua require('nice-reference').references()<CR>]],
+        lhs = "<C-Right>",
+        rhs = [[<cmd>BufferNext<CR>]],
+        opt = {
+            noremap = true,
+        },
     },
     {
-        -- Fine cmd line
         mode = "n",
-        lhs = "<Tab>",
-        rhs = [[<cmd>FineCmdline<CR>]]
+        lhs = "<C-Left>",
+        rhs = [[<cmd>BufferPrevious<CR>]],
+        opt = {
+            noremap = true,
+        },
+    },
+    {
+        -- Nice references
+        mode = "n",
+        lhs = "<C-LeftMouse>",
+        rhs = [[<cmd>lua require('nice-reference').references()<CR>]],
     },
     {
         -- Telescope find in files
         mode = "n",
         lhs = "1",
-        rhs = [[<cmd>lua Spyglass.find_files({ no_ignore = true, prompt_title = 'Search?', preview_title = '...' })<CR>]]
+        rhs =
+        [[<cmd>lua Spyglass.find_files({ no_ignore = true, prompt_title = 'Search?', preview_title = '...', cwd = initDirectory, manual_mode = true }); print(initDirectory)<CR>]]
     },
     {
         -- Telescope buffers
         mode = "n",
         lhs = "2",
         rhs =
-        [[<cmd>lua Spyglass.buffers(SpyglassTheme.get_cursor({ no_ignore = true, prompt_title = 'Buffer?', preview_title = '...' }))<CR>]]
+        [[<cmd>lua Spyglass.buffers(SpyglassTheme.get_cursor({ no_ignore = true, prompt_title = 'Buffer?', preview_title = '...', layout_config = { width = 0.8 } }))<CR>]]
     },
     {
         -- Telescope live grep (ripgrep)
         mode = "n",
         lhs = "3",
-        rhs = [[<cmd>lua Spyglass.live_grep({ no_ignore = true, prompt_title = 'Grepper?', preview_title = '...' })<CR>]]
+        rhs =
+        [[<cmd>lua Spyglass.live_grep({ no_ignore = true, prompt_title = 'Grepper?', preview_title = '...', cwd = initDirectory })<CR>]]
     },
     {
         -- Telescope help tags
