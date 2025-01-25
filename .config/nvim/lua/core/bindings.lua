@@ -104,50 +104,5 @@ bndr.physmapMulti({
         mode = "n",
         lhs = "4",
         rhs = [[<cmd>lua Spyglass.help_tags()<CR>]]
-    },
-    {
-        -- Codeium acception
-        mode = "i",
-        lhs = "<Tab>",
-        rhs = function()
-            return vim.fn['codeium#Accept']()
-        end,
-        opt = {
-            expr = true,
-            noremap = true,
-        },
-    },
-    {
-        -- Codeium cycle forward
-        mode = "i",
-        lhs = "<c-;>",
-        rhs = function()
-           return vim.fn['codeium#CycleCompletions'](1)
-        end,
-        opt = {
-            expr = true,
-        },
-    },
-    {
-        -- Codeium cycle backward
-        mode = "i",
-        lhs = "<c-,>",
-        rhs = function()
-            return vim.fn['codeium#CycleCompletions'](-1)
-        end,
-        opt = {
-            expr = true,
-        },
-    },
-    {
-        -- Codeium clear completion
-        mode = "i",
-        lhs = "<c-x>",
-        rhs = function()
-            return vim.fn['codeium#Clear']()
-        end,
-        opt = {
-            expr = true,
-        },
-    },
+    }
 })
