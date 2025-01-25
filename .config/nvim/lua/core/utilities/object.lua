@@ -1,17 +1,6 @@
---[[
---  ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗
--- ██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
--- ██║   ██║██████╔╝     ██║█████╗  ██║        ██║   
--- ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║   
--- ╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║   
---  ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
-]]--
+local O = {}
 
--- Object utilities
-
-local OBJ = {}
-
-function OBJ.inspect(o, tbs, tb)
+function O.inspect(o, tbs, tb)
     tb = tb or 0
     tbs = tbs or "  "
     if type(o) == "table" then
@@ -26,7 +15,7 @@ function OBJ.inspect(o, tbs, tb)
             if type(k) ~= "number" then
                 k = '"' .. k .. '"'
             end
-            s = s .. tbs:rep(tb) .. "[" .. k .. "] = " .. OBJ.inspect(v, tbs, tb)
+            s = s .. tbs:rep(tb) .. "[" .. k .. "] = " .. O.inspect(v, tbs, tb)
             s = s .. ",\n"
         end
         tb = tb - 1
@@ -36,7 +25,7 @@ function OBJ.inspect(o, tbs, tb)
     end
 end
 
-function OBJ.spread_table(template)
+function O.spread_table(template)
     local result = {}
     for key, value in pairs(template) do
         result[key] = value
@@ -50,12 +39,33 @@ function OBJ.spread_table(template)
     end
 end
 
-function OBJ.merge_table(tbl1, tbl2)
+function O.merge_table(tbl1, tbl2)
     for _, value in ipairs(tbl2) do
         tbl1[#tbl1 + 1] = value
     end
     return tbl1
 end
 
-return OBJ
+function O.buffers_loaded()
+    local bufs_loaded = {}
 
+    for i, buf_hndl in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf_hndl) then
+            bufs_loaded[i] = buf_hndl
+        end
+    end
+
+    return bufs_loaded
+end
+
+function O.buffers_unloaded()
+    local bufs_loaded = {}
+
+    for i, buf_hndl in ipairs(vim.api.nvim_list_bufs()) do
+        bufs_loaded[i] = buf_hndl
+    end
+
+    return bufs_loaded
+end
+
+return O
