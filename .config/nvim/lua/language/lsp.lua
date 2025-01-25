@@ -1,56 +1,52 @@
---[[
--- ██╗     ███████╗██████╗
--- ██║     ██╔════╝██╔══██╗
--- ██║     ███████╗██████╔╝
--- ██║     ╚════██║██╔═══╝
--- ███████╗███████║██║
--- ╚══════╝╚══════╝╚═╝
-]]--
-
--- LSP utilities
-
+local l = require("language.lang")
 local lspz = require("lsp-zero")
-local lang = require("language.lang")
+local treesitter = require("nvim-treesitter.configs")
 
 lspz.preset("recommended")
 lspz.setup()
 
 -- Configure Mason language servers
 require("mason-lspconfig").setup({
-    --ensure_installed = lang.mason_languages,
+    ensure_installed = l.lang.mason_languages,
     automatic_installation = true,
 })
 
+require('lspconfig').lua_ls.setup({
+    -- ... other configs
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' },
+            },
+        },
+    },
+    workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+    },
+    telemetry = {
+        enable = false,
+    }
+})
 
--- Configure tree-sitter file syntax rules
-require("nvim-treesitter.configs").setup({
-    ensure_installed = lang.languages, -- Language list
-    ignore_install = lang.optional_languages,
+treesitter.setup({
+    ensure_installed = l.lang.languages,
+    ignore_install = l.lang.ignore_languages,
     sync_install = true,
     auto_install = true,
     highlight = {
-        enable = true
+        enable = true,
     },
-    additional_vim_regex_highlighting = false
+    additional_vim_regex_highlighting = false,
 })
 
--- Configure lua ls
-require("lspconfig").lua_ls.setup({
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT",
-            },
-        },
-        diagnostics = {
-            globals = { "vim" },
-        },
-        workspace = {
-            library = vim.api.nvim_get_runtime_file("", true),
-        },
-        telemetry = {
-            enable = false,
-        },
+l.RegisterLanguages({
+    json = {
+        language = "json5",
+        filetype = "jsonc",
+    },
+    pythonc = {
+        language = "python",
+        filetype = "pyc",
     },
 })
 
