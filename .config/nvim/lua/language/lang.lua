@@ -6,7 +6,7 @@ L.lang = {
     },
     mason_languages = {
         "lua_ls", "clangd", "jdtls", "jsonls", "lemminx", "sqlls", "intelephense", "pyright", "tsserver", "marksman",
-        "graphql", "html", "volar", "tsserver"
+        "graphql", "html", "volar"
     },
     ignore_languages = {
     },
