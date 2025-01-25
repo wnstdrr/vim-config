@@ -1,67 +1,65 @@
---[[
--- ██████╗ ██╗     ██╗   ██╗ ██████╗ ██╗███╗   ██╗
--- ██╔══██╗██║     ██║   ██║██╔════╝ ██║████╗  ██║
--- ██████╔╝██║     ██║   ██║██║  ███╗██║██╔██╗ ██║
--- ██╔═══╝ ██║     ██║   ██║██║   ██║██║██║╚██╗██║
--- ██║     ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║
--- ╚═╝     ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝
-]]
---
+local pkg = require("plugins.pack")
 
--- Plugin utilities
--- "our" code
-
-require("plugins.pack")
-
-return Pkg.startup(function(use)
+return pkg.packer.startup(function(use)
     use {
-        -- Default packages
         "wbthomason/packer.nvim",
-        "ellisonleao/gruvbox.nvim",
-        "williamboman/mason-lspconfig.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "nvim-lualine/lualine.nvim",
-        "nvim-neo-tree/neo-tree.nvim",
-        "pacha/vem-tabline"
-    }
+        "williamboman/mason-lspconfig.nvim",
+        "rebelot/kanagawa.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "lewis6991/gitsigns.nvim",
+        "romgrk/barbar.nvim",
+        "windwp/windline.nvim",
 
-    use {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
-        requires = {
-            -- LSP Support
-            "neovim/nvim-lspconfig",
-            {
-                "williamboman/mason.nvim",
-                run = function()
-                    pcall(vim.cmd, "MasonUpdate")
-                end
-            },
-            "williamboman/mason-lspconfig.nvim",
-            -- Autocompletion
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-nvim-lua",
-            -- Snippets
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets"
+        use {
+            "nvim-neo-tree/neo-tree.nvim",
+            requires = { "MunifTanjim/nui.nvim" }
+        },
+
+        use {
+            "VonHeikemen/lsp-zero.nvim",
+            branch = "v2.x",
+            requires = {
+                -- LSP Support
+                "neovim/nvim-lspconfig",
+                {
+                    "williamboman/mason.nvim",
+                    run = function()
+                        pcall(vim.cmd, "MasonUpdate")
+                    end
+                },
+                "williamboman/mason-lspconfig.nvim",
+                -- Autocompletion
+                "hrsh7th/nvim-cmp",
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-buffer",
+                "hrsh7th/cmp-path",
+                "saadparwaiz1/cmp_luasnip",
+                "hrsh7th/cmp-nvim-lua",
+                -- Snippets
+                "L3MON4D3/LuaSnip",
+                "rafamadriz/friendly-snippets"
+            }
         }
     }
 
     use {
-        -- Finecmd
-        "vonheikemen/fine-cmdline.nvim",
-        requires = { "MunifTanjim/nui.nvim" }
+        -- Dashboard
+        'glepnir/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require("dashboard").setup(
+                require("core.dboard").board
+            )
+        end,
+        requires = { 'nvim-tree/nvim-web-devicons' }
     }
 
     use {
         -- Telescope
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.1",
-        requires = { "nvim-lua/plenary.nvim" }
+        tag = "0.1.3",
+        requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-file-browser.nvim" }
     }
 
     use {
@@ -74,23 +72,18 @@ return Pkg.startup(function(use)
     }
 
     use {
-        -- Dashboard
-        'glepnir/dashboard-nvim',
-        event = 'VimEnter',
-        config = function()
-            require("core.dashboard")
-        end,
-        requires = { 'nvim-tree/nvim-web-devicons' }
+        'neoclide/coc-java',
     }
 
-    use {
+    --[[use {
         -- Animation
         'echasnovski/mini.nvim',
         config = function()
             require('core.animate')
         end,
         branch = 'stable',
-    }
+    }--]]
+
     use {
         'tanvirtin/vgit.nvim',
         config = function()
@@ -100,12 +93,10 @@ return Pkg.startup(function(use)
             'nvim-lua/plenary.nvim',
         },
     }
-    use {
-        "Exafunction/codeium.vim",
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "hrsh7th/nvim-cmp",
-        },
-    }
-end)
 
+    use { 'nvim-orgmode/orgmode', config = function()
+        require('orgmode').setup {}
+    end
+    }
+
+end)
